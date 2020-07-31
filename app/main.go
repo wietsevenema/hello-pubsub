@@ -47,8 +47,10 @@ type Service struct {
 	🎬 Open http://localhost:8080/submit and check docker-compose logs.
 	   You should see the same message twice.
 
-  🎤 Timeouts, retries, undeliverable, authentication with IAM,
-     message retention, pull subscriptions.
+  🎤 Timeouts, retries, undeliverable messages, authentication with IAM,
+	 message retention, pull subscriptions, delivery at least once,
+	 message ordering, pushing to private endpoints inside VPC,
+	 flow control.
 */
 
 func main() {
@@ -77,7 +79,7 @@ func main() {
 
 	// Set up URL handlers
 	r := mux.NewRouter()
-	// The homepage
+	// The homepage handler
 	r.HandleFunc("/", service.homeHandler)
 	// Handler to publish a message
 	r.HandleFunc("/submit", service.submitHandler)
