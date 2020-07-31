@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    build: 
+      context: app
+      target: dev
+    ports: 
+      - "8080:8080"
+    volumes: 
+      - ./app:/go/src/app
+    environment:
+        PORT: 8080
+        PUBSUB_EMULATOR_HOST: pubsub:3000
+        PUBSUB_PROJECT_ID: local 
+        PUSH_URL: http://app:8080/push
+    depends_on:
+        - pubsub
+
+  pubsub:
+    build: pubsub
+    command: ["--host-port=0.0.0.0:3000", "--project=local"]
+  
